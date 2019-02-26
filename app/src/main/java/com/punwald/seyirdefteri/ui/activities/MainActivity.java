@@ -1,7 +1,9 @@
-package com.punwald.seyirdefteri;
+package com.punwald.seyirdefteri.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.punwald.seyirdefteri.R;
 
 public class MainActivity extends AppCompatActivity {
 
