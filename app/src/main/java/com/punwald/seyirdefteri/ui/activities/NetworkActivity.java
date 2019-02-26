@@ -1,11 +1,14 @@
-package com.punwald.seyirdefteri;
+package com.punwald.seyirdefteri.ui.activities;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.punwald.seyirdefteri.R;
 import com.punwald.seyirdefteri.receivers.NetworkChangeReceiver;
+import com.punwald.seyirdefteri.ui.activities.MainActivity;
 
 public class NetworkActivity extends AppCompatActivity implements NetworkChangeReceiver.NetworkChange {
 
@@ -23,6 +26,13 @@ public class NetworkActivity extends AppCompatActivity implements NetworkChangeR
         networkChangeReceiver=new NetworkChangeReceiver();
         networkChangeReceiver.setNetworkChange(this);
 
+    }
+
+    private void retry(){
+        if (hasNetwork){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
     }
 
     @Override
