@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Seyir Defteri</string>
+
+
+    <string-array name="film_type">
+        <item>Film</item>
+        <item>Dizi</item>
+        <item>Anime</item>
+    </string-array>
 </resources>

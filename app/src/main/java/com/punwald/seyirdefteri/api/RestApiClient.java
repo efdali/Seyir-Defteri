@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
 
+    private static final String BASE_URL="http://192.168.2.7/seyir-defteri/";
     private static RestApi restApi;
 
     public static RestApi getClient() {
@@ -19,7 +20,7 @@ public class RestApiClient {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl(BASE_URL)
                 .client(new OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

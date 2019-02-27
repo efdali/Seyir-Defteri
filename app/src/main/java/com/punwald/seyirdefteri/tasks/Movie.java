@@ -2,6 +2,8 @@ package com.punwald.seyirdefteri.tasks;
 
 import com.punwald.seyirdefteri.models.MovieModel;
 
+import java.util.List;
+
 public interface Movie {
 
     interface View{
@@ -13,7 +15,7 @@ public interface Movie {
     }
 
     interface Presenter{
-        void getMovie(String imdbID);
+        void getMovie();
     }
 
 }
