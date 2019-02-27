@@ -10,6 +10,6 @@
     <color name="bottom_menu_bg">#333333</color>
     <color name="bottom_menu_profile">#FF4E4E</color>
     <color name="white">#fff</color>
-    <color name="activity_bg">#EFEFEF</color>
+    <color name="network_acitivity_bg">#EFEFEF</color>
 
 </resources>

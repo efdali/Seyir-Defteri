@@ -5,6 +5,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.punwald.seyirdefteri.R;
 import com.punwald.seyirdefteri.receivers.NetworkChangeReceiver;
@@ -28,7 +29,7 @@ public class NetworkActivity extends AppCompatActivity implements NetworkChangeR
 
     }
 
-    private void retry(){
+    private void retry(View view){
         if (hasNetwork){
             startActivity(new Intent(this, MainActivity.class));
             finish();
