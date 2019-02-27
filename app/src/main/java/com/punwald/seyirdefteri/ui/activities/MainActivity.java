@@ -5,8 +5,8 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 
 import com.punwald.seyirdefteri.R;
 import com.punwald.seyirdefteri.receivers.NetworkChangeReceiver;
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements NetworkChangeRece
     IntentFilter intentFilter;
     NetworkChangeReceiver networkChangeReceiver;
     BottomNavigationView bottomNavigationView;
-    ViewPager viewPager;
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +24,14 @@ public class MainActivity extends AppCompatActivity implements NetworkChangeRece
         setContentView(R.layout.activity_main);
 
         initNetworkReceiver();
+
     }
 
     private void initNetworkReceiver() {
 
         intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        networkChangeReceiver=new NetworkChangeReceiver();
+        networkChangeReceiver = new NetworkChangeReceiver();
         networkChangeReceiver.setNetworkChange(this);
 
     }
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NetworkChangeRece
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(networkChangeReceiver,intentFilter);
+        registerReceiver(networkChangeReceiver, intentFilter);
     }
 
     @Override

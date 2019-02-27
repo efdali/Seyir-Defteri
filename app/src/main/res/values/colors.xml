@@ -8,7 +8,7 @@
     <!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
 
     <color name="bottom_menu_bg">#333333</color>
-    <color name="selected_item">#F25245</color>
+    <color name="bottom_menu_profile">#FF4E4E</color>
     <color name="white">#fff</color>
 
 </resources>
