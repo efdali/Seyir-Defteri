@@ -23,6 +23,7 @@
         android:layout_marginTop="33dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></Spinner>
+    
 
     <Spinner
         android:id="@+id/spinnerCategory"
