@@ -8,6 +8,10 @@ public interface Movie {
 
         void showMovie(MovieModel movieModel);
 
+        void showProgressDialog();
+
+        void closeProgressDialog();
+
         void onFailed(String message);
 
     }

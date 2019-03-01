@@ -1,9 +1,15 @@
 package com.punwald.seyirdefteri.presenters;
 
+import android.os.AsyncTask;
+
 import com.punwald.seyirdefteri.api.RestApi;
 import com.punwald.seyirdefteri.api.RestApiClient;
 import com.punwald.seyirdefteri.models.MovieModel;
 import com.punwald.seyirdefteri.tasks.Movie;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,13 +17,16 @@ import retrofit2.Response;
 
 public class MoviePresenter implements Movie.Presenter {
 
-    public int rowCount;
+    int rowCount = 2;
     RestApi restApi;
     Movie.View view;
+    List<Integer> randoms;
+    int num = 0;
     private String filmType = "Film";
 
     public MoviePresenter(Movie.View view) {
         this.view = view;
+        randoms = new ArrayList<>();
         restApi = RestApiClient.getClient();
         getRowCount();
     }
@@ -28,8 +37,9 @@ public class MoviePresenter implements Movie.Presenter {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful())
+                if (response.isSuccessful()) {
                     rowCount = Integer.parseInt(response.body());
+                }
             }
 
             @Override
@@ -37,6 +47,7 @@ public class MoviePresenter implements Movie.Presenter {
 
             }
         });
+        num = 0;
 
     }
 
@@ -44,34 +55,69 @@ public class MoviePresenter implements Movie.Presenter {
         this.filmType = filmType;
         getRowCount();
         getMovie();
+
     }
 
 
     @Override
     public void getMovie() {
-
-        Call<MovieModel> movie = restApi.getMovie("2", "Anime");
-        movie.enqueue(new Callback<MovieModel>() {
-            @Override
-            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
-                if (response.isSuccessful()) {
-                    MovieModel movieModel = response.body();
-                    view.showMovie(movieModel);
-                } else {
-                    view.onFailed(response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MovieModel
-                    > call, Throwable t) {
-                view.onFailed(t.getMessage());
-            }
-        });
-
+        new MyASyncTask().execute();
     }
 
     public String random() {
-        return String.valueOf((int) (Math.random() * rowCount + 1));
+        Random random = new Random();
+        int sayi = random.nextInt(rowCount) + 1;
+        boolean check = randoms.contains(sayi);
+        if (num != rowCount) {
+            while (check) {
+                sayi = random.nextInt(rowCount) + 1;
+                check = randoms.contains(sayi);
+            }
+        } else {
+            randoms = new ArrayList<>();
+        }
+        randoms.add(sayi);
+        num++;
+        return String.valueOf(sayi);
     }
+
+    class MyASyncTask extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Call<MovieModel> movie = restApi.getMovie(random(), filmType);
+            movie.enqueue(new Callback<MovieModel>() {
+                @Override
+                public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
+                    if (response.isSuccessful()) {
+                        MovieModel movieModel = response.body();
+                        view.showMovie(movieModel);
+                    } else {
+                        view.onFailed(response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MovieModel> call, Throwable t) {
+                    view.onFailed(t.getMessage());
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            view.showProgressDialog();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            view.closeProgressDialog();
+        }
+    }
+
+
 }

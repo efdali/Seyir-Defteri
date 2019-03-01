@@ -18,5 +18,6 @@ public interface RestApi {
     Call<List<CategoryModel>> getCategories();
 
     @GET("getFilm.php")
-    Call<MovieModel> getMovie(@Query("filmID") String filmID, @Query("filmTur") String filmType);
+    Call<MovieModel> getMovie(@Query("filmId") String filmId, @Query("filmTur") String filmTur);
+
 }

@@ -1,10 +1,12 @@
 package com.punwald.seyirdefteri.models;
 
+
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MovieModel {
+public class MovieModel implements Serializable {
 
     @SerializedName("summary")
     private String summary;
@@ -19,7 +21,7 @@ public class MovieModel {
     private String imdb;
 
     @SerializedName("director")
-    private Director director;
+    private List<Director> director;
 
     @SerializedName("name")
     private String name;
@@ -62,11 +64,11 @@ public class MovieModel {
         this.imdb = imdb;
     }
 
-    public Director getDirector() {
+    public List<Director> getDirector() {
         return director;
     }
 
-    public void setDirector(Director director) {
+    public void setDirector(List<Director> director) {
         this.director = director;
     }
 
