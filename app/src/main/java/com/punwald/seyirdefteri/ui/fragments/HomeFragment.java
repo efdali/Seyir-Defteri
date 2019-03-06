@@ -41,11 +41,20 @@ public class HomeFragment extends Fragment implements Category.View, Movie.View 
     ArrayAdapter<String> typeAdapter, categoryAdapter;
     String[] types;
 
-    CategoryPresenter presenter;
+    CategoryPresenter categoryPresenter;
     MoviePresenter moviePresenter;
     Context context;
 
     MovieModel movieModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        categoryPresenter = new CategoryPresenter(this);
+
+        moviePresenter = new MoviePresenter(this);
+    }
 
     @Nullable
     @Override
@@ -53,17 +62,20 @@ public class HomeFragment extends Fragment implements Category.View, Movie.View 
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         context = view.getContext();
-        presenter = new CategoryPresenter(this);
-        presenter.getCategories();
 
-
-        moviePresenter = new MoviePresenter(this);
-        moviePresenter.getMovie();
         containerLayout = view.findViewById(R.id.containerLayout);
         spinnerType = view.findViewById(R.id.spinnerType);
         spinnerCategory = view.findViewById(R.id.spinnerCategory);
         draggableLayout = view.findViewById(R.id.draggableLayout);
         infoBtn = view.findViewById(R.id.infoBtn);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        categoryPresenter.getCategories();
 
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +108,8 @@ public class HomeFragment extends Fragment implements Category.View, Movie.View 
             }
         });
 
-        return view;
+
+
     }
 
     @Override
@@ -149,7 +162,7 @@ public class HomeFragment extends Fragment implements Category.View, Movie.View 
 
     @Override
     public void onFailed(String message) {
-        Snack.onSucces(getActivity(), message);
+        Snack.onFail(getActivity(), message);
     }
 
 }

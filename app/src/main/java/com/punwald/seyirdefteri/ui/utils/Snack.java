@@ -10,13 +10,13 @@ import com.punwald.seyirdefteri.R;
 
 public class Snack {
 
-    public static void onSucces(Activity activity, String message) {
+    public static void onFail(Activity activity, String message) {
 
         Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.containerLayout), message, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
-        sbView.setBackgroundColor(Color.WHITE);
+        sbView.setBackgroundColor(Color.RED);
         TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(Color.BLACK);
+        textView.setTextColor(Color.WHITE);
         snackbar.show();
 
     }

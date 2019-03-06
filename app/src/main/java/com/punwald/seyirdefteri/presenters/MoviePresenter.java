@@ -61,7 +61,7 @@ public class MoviePresenter implements Movie.Presenter {
 
     @Override
     public void getMovie() {
-        new MyASyncTask().execute();
+        new MovieAsyncTask().execute();
     }
 
     public String random() {
@@ -81,8 +81,12 @@ public class MoviePresenter implements Movie.Presenter {
         return String.valueOf(sayi);
     }
 
-    class MyASyncTask extends AsyncTask<Void, Void, Void> {
+    class MovieAsyncTask extends AsyncTask<Void,Void,Void>{
 
+        @Override
+        protected void onPreExecute() {
+            view.showProgressDialog();
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -96,28 +100,19 @@ public class MoviePresenter implements Movie.Presenter {
                     } else {
                         view.onFailed(response.message());
                     }
+                    view.closeProgressDialog();
                 }
 
                 @Override
                 public void onFailure(Call<MovieModel> call, Throwable t) {
                     view.onFailed(t.getMessage());
+                    view.closeProgressDialog();
+                    getRowCount();
+                    getMovie();
                 }
             });
             return null;
         }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            view.showProgressDialog();
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            view.closeProgressDialog();
-        }
     }
-
 
 }

@@ -1,5 +1,7 @@
 package com.punwald.seyirdefteri.presenters;
 
+import android.os.AsyncTask;
+
 import com.punwald.seyirdefteri.api.RestApi;
 import com.punwald.seyirdefteri.api.RestApiClient;
 import com.punwald.seyirdefteri.models.CategoryModel;
@@ -25,28 +27,37 @@ public class CategoryPresenter implements Category.Presenter {
     @Override
     public void getCategories() {
 
-        Call<List<CategoryModel>> call = restApi.getCategories();
-        call.enqueue(new Callback<List<CategoryModel>>() {
-            @Override
-            public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
-                if (response.isSuccessful()) {
-                    List<CategoryModel> models = response.body();
-                    String[] categories=new String[models.size()];
+        new CategoryAsyncTask().execute();
 
-                    for (int i=0;i<models.size();i++){
-                        categories[i]=models.get(i).getCategory();
+    }
+
+    class CategoryAsyncTask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Call<List<CategoryModel>> call = restApi.getCategories();
+            call.enqueue(new Callback<List<CategoryModel>>() {
+                @Override
+                public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
+                    if (response.isSuccessful()) {
+                        List<CategoryModel> models = response.body();
+                        String[] categories=new String[models.size()];
+
+                        for (int i=0;i<models.size();i++){
+                            categories[i]=models.get(i).getCategory();
+                        }
+
+                        view.showSpinner(categories);
                     }
 
-                    view.showSpinner(categories);
                 }
 
-            }
+                @Override
+                public void onFailure(Call<List<CategoryModel>> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<List<CategoryModel>> call, Throwable t) {
-
-            }
-        });
-
+                }
+            });
+            return null;
+        }
     }
 }
