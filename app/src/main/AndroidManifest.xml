@@ -13,10 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.LoginActivity"></activity>
-        <activity android:name=".ui.fragments.FilmDetailsActivity" />
-        <activity android:name=".ui.activities.NetworkActivity" />
-        <activity android:name=".ui.activities.MainActivity">
+        <activity android:name=".ui.network.NetworkActivity"></activity>
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".receivers.NetworkChangeReceiver" />
+        <receiver android:name=".util.receiver.NetworkReceiver" />
     </application>
 
 </manifest>

@@ -3,13 +3,13 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
+    <color name="ic_launcher_background">#FFFFFF</color>
 
     <!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
 
     <color name="bottom_menu_bg">#333333</color>
     <color name="bottom_menu_profile">#FF4E4E</color>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#FFF</color>
     <color name="network_acitivity_bg">#EFEFEF</color>
     <color name="login_bg">#008577</color>
 
